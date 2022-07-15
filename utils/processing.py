@@ -6,7 +6,7 @@ from scipy.fft import fft, fftfreq
 
 
 
-def fft(X, fs, axis = 0):
+def fft_(X, fs, axis = 0, vec = False):
 		"""
 		:param  x:  	array-like - Input Array 
 		:param fs: 		int - Input Sampling Frequency 
@@ -14,19 +14,25 @@ def fft(X, fs, axis = 0):
 		:return: 		Dictionary - frequency and fft amplitude values.  
 		"""
 
-		N = np.array(x).shape[0] 
+		N = np.array(X).shape[0] 
 		T = 1.0 / fs 
 
 		# Compute fft 
-		yf = (fft(input_array, axis = axis)) 
+		yf = (fft(X, axis = axis)) 
 		# Skip C0 coefficient
-		yf_trim = 2.0/N * np.abs(yf[1:(N//2), :])
-		# Compute the Phase
-		yf_phase = np.angle(yf[0:N//2, :])
+		if vec == False: 
+			yf_trim = 2.0/N * np.abs(yf[1:(N//2)])
+			# Compute the Phase
+			yf_phase = np.angle(yf[0:N//2])
+
+		elif vec == True:	
+			yf_trim = 2.0/N * np.abs(yf[1:(N//2), :])
+			# Compute the Phase
+			yf_phase = np.angle(yf[0:N//2, :])
 		# Frequency range 
 		xf = fftfreq(N, T)[1:N//2] 
 		fft_ = {
 				'frequency': xf, 
-				'fft_phase': yf_trim
+				'fft_': yf_trim
 			}
 		return fft_
