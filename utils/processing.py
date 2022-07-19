@@ -11,6 +11,7 @@ def fft_(X, fs, axis = 0, vec = False):
 		:param  x:  	array-like - Input Array 
 		:param fs: 		int - Input Sampling Frequency 
 		:param axis: 	int, optional - Axis over which to compute FFT, default = 0.  
+		:param vec:		True if the input is (MxN matrix), False if the input is (1xN) matrix
 		:return: 		Dictionary - frequency and fft amplitude values.  
 		"""
 
@@ -36,3 +37,12 @@ def fft_(X, fs, axis = 0, vec = False):
 				'fft_': yf_trim
 			}
 		return fft_
+
+def mean_center(df, loc = []):
+	for ax in loc: 
+		df[ax] = df[ax].values - np.mean(df[ax].values)
+
+def g_conversion(df): 
+	conv = conv = 2/(2**15) 
+	df['x'] = df.x.values*conv
+	df['y'] = df.y.values*conv

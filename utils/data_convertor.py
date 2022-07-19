@@ -88,4 +88,9 @@ def from_df_to_csv(df, path, log_num, foramt = '.csv'):
 	df.to_csv(path+log, header = True, index = False)
 
 
-
+# Use load (.dat) to df
+def read_dat(path, num_file = 1):
+    if num_file == 1:
+        return pd.DataFrame(np.loadtxt(path,  unpack = True).T , columns=['Ts', 'N.A', 'Velocity', 'CH0', 'CH1'])
+    return [np.loadtxt(f,  unpack = True) for f in glob.glob(path + "*.dat")]
+    
