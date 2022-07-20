@@ -73,7 +73,6 @@ def read_txt(path, label, log_num, format = '.TXT'):
 	
 	logger_path = logger(log_num, format)  
 	read_path = path + logger_path  
-	print(read_path)
 	with open(read_path) as f:
 		lines = f.readlines()
 		return from_txt_to_csv(lines, label, log_num)
@@ -83,7 +82,6 @@ def read_txt(path, label, log_num, format = '.TXT'):
 #convert df to .csv format
 
 def from_df_to_csv(df, path, log_num, foramt = '.csv'):
-	print(log_num)
 	log = logger(file_num = int(log_num), format = foramt)
 	df.to_csv(path+log, header = True, index = False)
 

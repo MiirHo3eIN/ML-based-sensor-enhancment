@@ -43,6 +43,6 @@ def mean_center(df, loc = []):
 		df[ax] = df[ax].values - np.mean(df[ax].values)
 
 def g_conversion(df): 
-	conv = conv = 2/(2**15) 
+	conv = 1/(2**15) 
 	df['x'] = df.x.values*conv
 	df['y'] = df.y.values*conv
